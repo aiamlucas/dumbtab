@@ -36,7 +36,7 @@ Both plugins can be combined: `folke/zen-mode.nvim` offers an elegant, distracti
 
 ## Commands
 
-- :DumbtabToggle - toggles the left padding.
+- `:DumbtabToggle` - toggles the left padding.
 
 ## Installation
 
@@ -45,12 +45,13 @@ Using [lazy.nvim](https://github.com/folke/lazy.nvim):
 ```
 {
   "aiamlucas/dumbtab",
+  main = "dumbtab",
   lazy = false,
-  config = function()
-    require("dumbtab").setup({
-      width = 20, -- left padding (columns)
-    })
-  end,
+  priority = 1000,
+  opts = {
+    width = 20,       -- left padding (columns)
+    enabled = false,  -- start with padding OFF
+  },
 }
 ```
 
