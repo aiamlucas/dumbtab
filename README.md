@@ -1,4 +1,4 @@
-# dumbtab.nvim
+# dumbtab
 
 A Neovim plugin that adds **persistent left padding** to the editing view.
 
