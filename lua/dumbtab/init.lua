@@ -7,7 +7,14 @@ local function set_bufopt(buf, name, val)
 	end
 end
 
+local function is_enabled()
+	return vim.t.dumbtab_disabled ~= true
+end
+
 local function ensure_pad_for_tab(width)
+	if not is_enabled() then
+		return
+	end
 	if vim.t.dumbtab_win and vim.api.nvim_win_is_valid(vim.t.dumbtab_win) then
 		return
 	end
@@ -69,10 +76,14 @@ local function bounce_if_pad()
 	end
 end
 
-M.opts = { width = 20 }
+M.opts = { width = 20, enabled = true }
 
 M.setup = function(opts)
 	M.opts = vim.tbl_deep_extend("force", M.opts, opts or {})
+
+	if M.opts.enabled == false then
+		vim.t.dumbtab_disabled = true
+	end
 
 	-- Create at startup and on new tabs
 	vim.api.nvim_create_autocmd({ "VimEnter", "TabEnter" }, {
@@ -81,11 +92,11 @@ M.setup = function(opts)
 		end,
 	})
 
-	-- Recreate if closed
+	-- Recreate if closed (only when enabled)
 	vim.api.nvim_create_autocmd("WinClosed", {
 		callback = function()
 			vim.schedule(function()
-				if not (vim.t.dumbtab_win and vim.api.nvim_win_is_valid(vim.t.dumbtab_win)) then
+				if is_enabled() and not (vim.t.dumbtab_win and vim.api.nvim_win_is_valid(vim.t.dumbtab_win)) then
 					ensure_pad_for_tab(M.opts.width)
 				end
 			end)
@@ -100,12 +111,18 @@ M.setup = function(opts)
 	-- Create immediately for the current tab
 	ensure_pad_for_tab(M.opts.width)
 
-	-- Toggle
+	-- Toggle per tab
 	vim.api.nvim_create_user_command("DumbtabToggle", function()
-		if vim.t.dumbtab_win and vim.api.nvim_win_is_valid(vim.t.dumbtab_win) then
-			pcall(vim.api.nvim_win_close, vim.t.dumbtab_win, true)
+		if is_enabled() then
+			-- disable for this tab and close if present
+			vim.t.dumbtab_disabled = true
+			if vim.t.dumbtab_win and vim.api.nvim_win_is_valid(vim.t.dumbtab_win) then
+				pcall(vim.api.nvim_win_close, vim.t.dumbtab_win, true)
+			end
 			vim.t.dumbtab_win = nil
 		else
+			-- enable and (re)create
+			vim.t.dumbtab_disabled = false
 			ensure_pad_for_tab(M.opts.width)
 		end
 	end, {})
