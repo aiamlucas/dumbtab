@@ -4,10 +4,14 @@ A Neovim plugin that adds **persistent left padding** to the editing view.
 
 ## What’s the problem?
 
-On wide and ultra-wide displays, code often begins at the far left edge of the screen.  
+On wide and ultra-wide displays (especially when the editor is fullscreen), code often begins at the far left edge of the screen.  
 That edge-hugging layout can be uncomfortable; a slightly right-shifted focal area is often easier on the eyes and neck.
 
 ## How it solves it
+
+<p align="center">
+  <img src="./images/dumbtab.png" width="1000" alt="dumbtab.nvim — persistent left padding">
+</p>
 
 `dumbtab.nvim` opens a small, fixed-width, non-editable window on the left and keeps it there.  
 The actual editing window remains to the right, creating a soft, always-present visual margin.
