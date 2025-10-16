@@ -34,6 +34,10 @@ Both plugins can be combined: `folke/zen-mode.nvim` offers an elegant, distracti
 - May appear in buffer/tab UIs; marked unlisted, but some UIs may still show it.
 - Window navigation and `:q` semantics can feel awkward; focus may land on the padding window.
 
+## Commands
+
+- :DumbtabToggle - toggles the left padding.
+
 ## Installation
 
 Using [lazy.nvim](https://github.com/folke/lazy.nvim):
@@ -41,11 +45,23 @@ Using [lazy.nvim](https://github.com/folke/lazy.nvim):
 ```
 {
   "aiamlucas/dumbtab",
-  lazy = false, -- create padding at startup
+  lazy = false,
   config = function()
     require("dumbtab").setup({
       width = 20, -- left padding (columns)
     })
   end,
 }
+```
+
+## Keybinding
+
+No default keymaps are set. Example mappings:
+
+```
+-- In lua/config/keymaps.lua (or similar)
+vim.keymap.set("n", "<leader>um", "<cmd>DumbtabToggle<CR>", {
+  silent = true,
+  desc = "Toggle left margin (dumbtab)",
+})
 ```
