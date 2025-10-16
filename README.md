@@ -1,0 +1,45 @@
+# dumbtab.nvim
+
+A Neovim plugin that adds **persistent left padding** to the editing view.
+
+## What’s the problem?
+
+On wide and ultra-wide displays, code often begins at the far left edge of the screen.  
+That edge-hugging layout can be uncomfortable; a slightly right-shifted focal area is often easier on the eyes and neck.
+
+## How it solves it
+
+`dumbtab.nvim` opens a small, fixed-width, non-editable window on the left and keeps it there.  
+The actual editing window remains to the right, creating a soft, always-present visual margin.
+
+## Not a definitive solution (aka gambiarra)
+
+This plugin is intentionally a **gambiarra** (Brazilian Portuguese word for a clever, improvised fix that isn’t the “proper” solution, but it works!).  
+For a quick sense of the concept, pictures of “gambiarra” on the internet convey the idea immediately!
+
+## How it compares to Zen-mode plugins
+
+`folke/zen-mode.nvim` is a polished, purpose-built focus tool: excellent for distraction-free, single-buffer work (often using a centered or floating layout) and packed with thoughtful integrations.  
+`dumbtab.nvim` is a **temporary** workaround that provides a left padding margin across **multiple splits/tabs**, survives **pane** open/close and remains compatible with **Neo-tree**.
+
+## Downsides & caveats (why it's a temporary solution)
+
+- Uses a real **window** as padding (not a true layout/gutter feature).
+- May appear in buffer/tab UIs; marked unlisted, but some UIs may still show it.
+- Window navigation and `:q` semantics can feel awkward; focus may land on the padding window.
+
+## Installation
+
+Using [lazy.nvim](https://github.com/folke/lazy.nvim):
+
+```
+{
+  "aiamlucas/dumbtab.nvim", -- or "https://github.com/aiamlucas/dumbtab.nvim"
+  lazy = false, -- create padding at startup
+  config = function()
+    require("dumbtab").setup({
+      width = 20, -- left padding (columns)
+    })
+  end,
+}
+```
