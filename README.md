@@ -40,7 +40,7 @@ Using [lazy.nvim](https://github.com/folke/lazy.nvim):
 
 ```
 {
-  "aiamlucas/dumbtab.nvim",
+  "aiamlucas/dumbtab",
   lazy = false, -- create padding at startup
   config = function()
     require("dumbtab").setup({
