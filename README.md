@@ -57,10 +57,13 @@ Using [lazy.nvim](https://github.com/folke/lazy.nvim):
 
 ## Keybinding
 
-No default keymaps are set. Example mappings:
+No default keymaps are set.
+
+Example mappings:
+map **`<leader>um`** (Space → u → m) to toggle the margin
+In lua/config/keymaps.lua (or similar)
 
 ```
--- In lua/config/keymaps.lua (or similar)
 vim.keymap.set("n", "<leader>um", "<cmd>DumbtabToggle<CR>", {
   silent = true,
   desc = "Toggle left margin (dumbtab)",
