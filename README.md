@@ -22,6 +22,8 @@ For a quick sense of the concept, pictures of “gambiarra” on the internet co
 `folke/zen-mode.nvim` is a polished, purpose-built focus tool: excellent for distraction-free, single-buffer work (often using a centered or floating layout) and packed with thoughtful integrations.  
 `dumbtab.nvim` is a **temporary** workaround that provides a left padding margin across **multiple splits/tabs**, survives **pane** open/close and remains compatible with **Neo-tree**.
 
+Both plugins can be combined: `folke/zen-mode.nvim` offers an elegant, distraction-free single-buffer experience when needed, while `dumbtab.nvim` provides a provisional left margin for multi-split editing.
+
 ## Downsides & caveats (why it's a temporary solution)
 
 - Uses a real **window** as padding (not a true layout/gutter feature).
