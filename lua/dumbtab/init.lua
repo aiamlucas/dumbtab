@@ -8,6 +8,10 @@ local function set_bufopt(buf, name, val)
 end
 
 local function is_enabled()
+	if vim.t.dumbtab_disabled == nil then
+		-- default from setup(): true unless explicitly set to false
+		return M.opts.enabled ~= false
+	end
 	return vim.t.dumbtab_disabled ~= true
 end
 
@@ -80,10 +84,6 @@ M.opts = { width = 20, enabled = true }
 
 M.setup = function(opts)
 	M.opts = vim.tbl_deep_extend("force", M.opts, opts or {})
-
-	if M.opts.enabled == false then
-		vim.t.dumbtab_disabled = true
-	end
 
 	-- Create at startup and on new tabs
 	vim.api.nvim_create_autocmd({ "VimEnter", "TabEnter" }, {
